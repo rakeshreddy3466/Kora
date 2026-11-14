@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug: website (dashboard)",
+      "type": "debugpy", "request": "launch", "module": "kora.cli",
+      "args": ["dashboard", "--port", "8080"],
+      "env": { "KORA_DATA_DIR": "${workspaceFolder}/.kora-data", "KORA_SANDBOX": "inline" },
+      "justMyCode": true, "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug: process a folder",
+      "type": "debugpy", "request": "launch", "module": "kora.cli",
+      "args": ["ingest-folder", "${input:folder}", "--name", "debug-run", "--owner", "me"],
+      "env": { "KORA_DATA_DIR": "${workspaceFolder}/.kora-data", "KORA_SANDBOX": "inline" },
+      "justMyCode": true, "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug: current test file",
+      "type": "debugpy", "request": "launch", "module": "pytest",
+      "args": ["-q", "${file}"], "justMyCode": false, "console": "integratedTerminal"
+    }
+  ],
+  "inputs": [
+    { "id": "folder", "type": "promptString", "description": "Folder to process", "default": "${workspaceFolder}/samples" }
+  ]
+}

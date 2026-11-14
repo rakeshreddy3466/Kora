@@ -1,0 +1,67 @@
+[
+  {
+    "id": "alice",
+    "display_name": "Alice Andersson",
+    "groups": [
+      "network-team"
+    ],
+    "manager_id": "erik",
+    "team": "network"
+  },
+  {
+    "id": "bob",
+    "display_name": "Bob Berg",
+    "groups": [
+      "network-team"
+    ],
+    "manager_id": "alice",
+    "team": "network",
+    "status": "departing"
+  },
+  {
+    "id": "carol",
+    "display_name": "Carol Chen",
+    "groups": [
+      "network-team",
+      "core-team"
+    ],
+    "manager_id": "alice",
+    "team": "network"
+  },
+  {
+    "id": "dave",
+    "display_name": "Dave Dahl",
+    "groups": [
+      "governance"
+    ],
+    "team": "governance"
+  },
+  {
+    "id": "erin",
+    "display_name": "Erin Ek",
+    "groups": [
+      "governance"
+    ],
+    "team": "it-operations"
+  },
+  {
+    "id": "frank",
+    "display_name": "Frank Fors (partner)",
+    "groups": []
+  },
+  {
+    "id": "gina",
+    "display_name": "Gina Gustafsson",
+    "groups": [
+      "governance"
+    ],
+    "team": "audit"
+  },
+  {
+    "id": "erik",
+    "display_name": "Erik Eriksson",
+    "groups": [
+      "leadership"
+    ]
+  }
+]

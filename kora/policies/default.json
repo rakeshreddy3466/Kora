@@ -1,0 +1,199 @@
+{
+  "version": "2026-11-13.1",
+  "description": "Default KORA governance policy. Every deletion plan records this version and its hash.",
+  "quarantine_days": 30,
+  "min_verified_copies": 1,
+  "system_precedence": {
+    "sharepoint": 3,
+    "ericsson_play": 2,
+    "onedrive": 1,
+    "upload": 0
+  },
+  "retention_strength": {
+    "record": 3,
+    "regulatory": 2,
+    "standard": 1,
+    "transient": 0
+  },
+  "retention_labels": {
+    "record": {
+      "immutable": true,
+      "min_age_days": 3650
+    },
+    "regulatory": {
+      "immutable": false,
+      "min_age_days": 2555
+    },
+    "standard": {
+      "immutable": false,
+      "min_age_days": 0
+    },
+    "transient": {
+      "immutable": false,
+      "min_age_days": 0
+    }
+  },
+  "allow_dedupe_if_survivor_retains": true,
+  "classes": {
+    "EXACT_COPY": {
+      "deletable": true,
+      "approvals": 1,
+      "action": "QUARANTINE_AND_STUB",
+      "recovery": "byte_exact"
+    },
+    "CONTAINER_VARIANT": {
+      "deletable": true,
+      "approvals": 1,
+      "action": "QUARANTINE_AND_STUB",
+      "recovery": "render_equivalent"
+    },
+    "SUPERSEDED_REVISION": {
+      "deletable": true,
+      "approvals": 1,
+      "action": "COMPACT_TO_SLIDE_STORE",
+      "recovery": "render_equivalent"
+    },
+    "CONTAINED_SUBSET": {
+      "deletable": true,
+      "approvals": 2,
+      "action": "COMPACT_TO_SLIDE_STORE",
+      "recovery": "render_equivalent"
+    },
+    "MEDIA_VARIANT": {
+      "deletable": true,
+      "approvals": 2,
+      "action": "QUARANTINE_AND_STUB",
+      "recovery": "media_equivalent"
+    },
+    "RECORDING_DISTILLED": {
+      "deletable": true,
+      "approvals": 2,
+      "action": "MOVE_TO_ARCHIVE",
+      "recovery": "byte_exact_archive"
+    },
+    "PARTIAL_OVERLAP": {
+      "deletable": false,
+      "approvals": 0,
+      "action": "SLIDE_LEVEL_DEDUP_ONLY",
+      "recovery": "n/a"
+    },
+    "NEAR_DUPLICATE": {
+      "deletable": false,
+      "approvals": 0,
+      "action": "HUMAN_REVIEW",
+      "recovery": "n/a"
+    },
+    "KNOWLEDGE_OVERLAP": {
+      "deletable": false,
+      "approvals": 0,
+      "action": "LINK_ONLY",
+      "recovery": "n/a"
+    },
+    "COMPRESSED": {
+      "deletable": true,
+      "approvals": 2,
+      "action": "REPLACE_WITH_RENDITION",
+      "recovery": "original_in_quarantine"
+    },
+    "MANUAL_DELETE": {
+      "deletable": true,
+      "approvals": 2,
+      "action": "QUARANTINE_AND_STUB",
+      "recovery": "knowledge_capsule"
+    }
+  },
+  "revisions": {
+    "keep": "head_and_released",
+    "keep_last_n_unreleased": 1,
+    "min_ordering_confidence": "medium",
+    "min_net_saving_ratio": 0.1,
+    "archive_original": false
+  },
+  "recordings": {
+    "allow_knowledge_only_deletion": false,
+    "min_transcript_coverage": 0.85,
+    "max_keyframe_gap_s": 600,
+    "require_speaker_attribution": false,
+    "require_review_for_asr": true,
+    "max_untranscribed_gap_s": 180
+  },
+  "media_variant": {
+    "max_duration_delta_ratio": 0.02,
+    "max_mean_phash_distance": 10
+  },
+  "near_duplicate": {
+    "min_jaccard": 0.8
+  },
+  "partial_overlap": {
+    "min_shared_ratio": 0.2
+  },
+  "knowledge_overlap": {
+    "min_cosine": 0.8
+  },
+  "quality_budgets": {
+    "pdf": {
+      "max_page_phash_distance": 4,
+      "require_identical_text": true
+    },
+    "video": {
+      "max_height": 720,
+      "min_audio_kbps": 32,
+      "max_mean_frame_phash_distance": 8
+    },
+    "engineering_diagram": {
+      "lossless": true
+    }
+  },
+  "check_weights": {
+    "victim_unchanged": 3,
+    "survivor_verified": 3,
+    "not_last_copy": 3,
+    "legal_hold_clear": 3,
+    "retention_satisfied": 3,
+    "permission_coverage": 2,
+    "no_conflicting_plan": 2,
+    "class_allowed": 3,
+    "recovery_path_verified": 3,
+    "net_saving": 2,
+    "capsule_valid": 2,
+    "lineage_consistent": 2,
+    "quality_budget": 3,
+    "metadata_preserved": 1,
+    "transcript_coverage": 2,
+    "transcript_reviewed": 2,
+    "speaker_attribution": 1,
+    "keyframe_coverage": 1,
+    "ownership_resolved": 1,
+    "rendition_intact": 3,
+    "knowledge_captured": 3,
+    "sole_copy": 1,
+    "access_impact": 1,
+    "current_revision": 1
+  },
+  "compression": {
+    "auto": true,
+    "min_saving_ratio": 0.2,
+    "video": {
+      "crf": 28,
+      "max_fps": 15,
+      "max_height": 1080,
+      "audio_kbps": 64,
+      "preset": "veryfast",
+      "min_ssim": 0.95,
+      "min_ocr_recall": 0.9,
+      "max_duration_delta_s": 1.0
+    },
+    "pdf": {
+      "dpi_threshold": 200,
+      "dpi_target": 150,
+      "quality": 80,
+      "min_page_ssim": 0.97,
+      "measure_zoom": 2.0
+    }
+  },
+  "manual": {
+    "max_files": 500,
+    "owners_may_request": true,
+    "note": "a person chose these files; KORA explains the impact, keeps the knowledge, and needs two approvers"
+  }
+}

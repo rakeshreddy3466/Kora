@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KORA: storage you can prove</title>
+  <link rel="icon" href="/ui/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/ui/app.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="shell">
+    <aside class="side" aria-label="Navigation">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="5" rx="1.5"/><rect x="3" y="13.5" width="17" height="5" rx="1.5"/><rect x="3" y="22" width="9" height="5" rx="1.5"/></svg>
+        <div><strong>KORA</strong><span>Knowledge Optimization, Recovery &amp; Assurance</span></div>
+      </div>
+      <nav id="nav">
+        <a href="#/overview" data-view="overview">Overview</a>
+        <a href="#/pipeline" data-view="pipeline">Pipeline <span class="count live" id="nav-live"></span></a>
+        <a href="#/recordings" data-view="recordings">Recordings</a>
+        <a href="#/files" data-view="files">Files</a>
+        <a href="#/plans" data-view="plans">Plans</a>
+        <a href="#/compression" data-view="compression">Compression</a>
+        <a href="#/versions" data-view="versions">Versions</a>
+        <a href="#/reviews" data-view="reviews">Reviews <span class="count" id="nav-reviews"></span></a>
+        <a href="#/knowledge" data-view="knowledge">Search &amp; AI</a>
+        <a href="#/audit" data-view="audit">Audit</a>
+      </nav>
+      <div class="persona">
+        <label for="persona">Acting as</label>
+        <select id="persona"></select>
+        <p id="persona-roles"></p>
+      </div>
+    </aside>
+    <main id="main" tabindex="-1"></main>
+  </div>
+  <div id="toasts" aria-live="polite"></div>
+  <div id="tip" role="tooltip" hidden></div>
+  <script src="/ui/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "default_owner": "alice",
+  "default_acl": [
+    "group:network-team"
+  ],
+  "items": {
+    "Architecture_Review_2026-05-12_480p.mp4": {
+      "created": "2026-05-13T08:00:00"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+# KORA as containers: PostgreSQL, the website + API, two workers and one deletion executor.
+#
+#   bash scripts/docker-up.sh          (creates .env with random secrets, builds, starts, prints the link)
+#   docker compose logs -f worker      (watch the processing)
+#   docker compose down                (stop; data stays in the volumes)   down -v   (wipe it)
+#
+# Your folder (KORA_IMPORT_DIR in .env) is mounted READ-ONLY at /import in every container.
+# In the website: Pipeline > Add a folder > "/import". KORA copies it into its own volume first,
+# so nothing can ever touch your originals.
+x-kora: &kora
+  build:
+    context: .
+    args:
+      BASE: ${KORA_BASE_IMAGE:-python:3.12-slim}
+      WITH_SPEECH: ${KORA_WITH_SPEECH:-1}
+  image: kora:latest
+  env_file: .env
+  environment:
+    KORA_ENV: production
+    KORA_DATABASE_URL: postgresql+psycopg://kora:${POSTGRES_PASSWORD}@db:5432/kora
+    KORA_ALLOW_LOCAL_INGEST: "1"
+    KORA_IMPORT_HINT: /import
+  volumes:
+    - kora-data:/data
+    - ${KORA_IMPORT_DIR:-./samples}:/import:ro
+  depends_on:
+    db: {condition: service_healthy}
+  read_only: true                     # the image itself cannot be changed by a compromised parser
+  tmpfs: ["/tmp"]
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+  restart: unless-stopped
+  networks: [backend]
+
+services:
+  db:
+    image: ${KORA_POSTGRES_IMAGE:-postgres:16-alpine}
+    environment:
+      POSTGRES_USER: kora
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: kora
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U kora -d kora"], interval: 3s, retries: 40}
+    restart: unless-stopped
+    networks: [backend]
+
+  # the website, the API (/docs) and the demo identities; no background jobs here
+  web:
+    <<: *kora
+    command: ["kora", "dashboard", "--host", "0.0.0.0", "--port", "8080", "--workers", "0", "--no-browser"]
+    ports: ["127.0.0.1:${KORA_PORT:-8080}:8080"]
+    networks: [backend, frontend]
+
+  # reading, fingerprinting, relating, transcribing, compressing: everything except deletion
+  worker:
+    <<: *kora
+    command: ["kora", "worker", "--kinds",
+              "source.ingest_folder,source.scan,file.hash,content.extract,content.relate,content.relink,content.capsule,content.index,content.optimize,capsule.rebuild"]
+    healthcheck: {disable: true}
+    deploy: {replicas: 2}
+
+  # the ONLY container that runs approved deletion plans (quarantine, restore, purge)
+  executor:
+    <<: *kora
+    command: ["kora", "worker", "--kinds", "plan.quarantine_item,plan.purge_item,plan.restore_item"]
+    healthcheck: {disable: true}
+
+volumes:
+  pgdata: {}
+  kora-data: {}
+
+networks:
+  backend: {internal: true}           # the database and workers are not reachable from outside
+  frontend: {}

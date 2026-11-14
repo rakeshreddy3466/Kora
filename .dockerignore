@@ -1,0 +1,16 @@
+.git
+.venv
+.kora
+.kora-data
+.env
+samples
+reports
+tests
+docs
+deck
+**/__pycache__
+**/*.pyc
+.pytest_cache
+*.egg-info
+*.db
+secrets

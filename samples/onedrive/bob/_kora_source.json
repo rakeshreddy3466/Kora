@@ -1,0 +1,36 @@
+{
+  "default_owner": "bob",
+  "default_acl": [
+    "user:bob"
+  ],
+  "default_retention_label": "standard",
+  "items": {
+    "Downloads/Network_Architecture_A (1).pdf": {
+      "created": "2026-04-20T10:00:00"
+    },
+    "Downloads/Network_Architecture_A (2).pdf": {
+      "created": "2026-04-21T10:00:00",
+      "legal_hold": true
+    },
+    "Downloads/5G_Core_Overview (1).pdf": {
+      "created": "2026-06-12T10:00:00",
+      "acl": [
+        "user:bob",
+        "user:frank"
+      ]
+    },
+    "Desktop/Network_Architecture_A_resaved.pdf": {
+      "created": "2026-05-02T12:00:00"
+    },
+    "Projects/Onboarding.pptx": {
+      "created": "2026-01-15T10:00:00"
+    },
+    "Projects/Onboarding (1).pptx": {
+      "created": "2026-01-16T10:00:00"
+    },
+    "Projects/Onboarding_v2.pptx": {
+      "created": "2026-02-15T10:00:00",
+      "modified": "2026-02-15T10:00:00"
+    }
+  }
+}

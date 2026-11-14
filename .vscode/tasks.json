@@ -1,0 +1,160 @@
+{
+  "version": "2.0.0",
+  "options": {
+    "env": {
+      "KORA_DATA_DIR": "${workspaceFolder}/.kora-data"
+    }
+  },
+  "tasks": [
+    {
+      "label": "KORA 1: Set up (tools, Python env, speech models)",
+      "type": "shell",
+      "command": "bash scripts/setup.sh",
+      "windows": {
+        "command": "echo On Windows, open this folder in WSL (Ubuntu) with the WSL extension, then run the tasks there."
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "KORA 2: Start the website (dashboard)",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/kora dashboard --port 8080",
+      "windows": {
+        "command": "echo On Windows, open this folder in WSL (Ubuntu) with the WSL extension, then run the tasks there."
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^__never__$"
+        },
+        "background": {
+          "activesBegin": true,
+          "beginsPattern": "KORA dashboard",
+          "endsPattern": "http://127.0.0.1"
+        }
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "KORA 3a: Process the synthetic demo data",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/python scripts/make_samples.py samples && ${workspaceFolder}/.venv/bin/kora ingest-folder samples --name demo --owner demo",
+      "problemMatcher": []
+    },
+    {
+      "label": "KORA 3b: Process a folder (e.g. the Ericsson Drive download)",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/kora ingest-folder \"${input:folder}\" --name ${input:sourceName} --owner ${input:owner}",
+      "problemMatcher": []
+    },
+    {
+      "label": "KORA: Transcribe recordings (offline Whisper)",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/kora retranscribe",
+      "problemMatcher": []
+    },
+    {
+      "label": "KORA: Measure compression",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/kora optimize",
+      "problemMatcher": []
+    },
+    {
+      "label": "KORA: Report (findings and savings)",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/kora report",
+      "problemMatcher": []
+    },
+    {
+      "label": "KORA: Run tests",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/python -m pytest -q",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "KORA: Start from scratch (delete .kora-data)",
+      "type": "shell",
+      "command": "rm -rf \"${workspaceFolder}/.kora-data\" && echo 'KORA workspace cleared. Your original folders were never touched.'",
+      "problemMatcher": []
+    },
+    {
+      "label": "KORA Docker: start (build and run everything)",
+      "type": "shell",
+      "command": "bash scripts/docker-up.sh \"${input:dockerFolder}\"",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "KORA Docker: watch the workers",
+      "type": "shell",
+      "command": "docker compose logs -f --tail 50 worker executor",
+      "problemMatcher": [],
+      "isBackground": true,
+      "presentation": {
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "KORA Docker: stop",
+      "type": "shell",
+      "command": "docker compose down",
+      "problemMatcher": []
+    },
+    {
+      "label": "KORA Docker: stop and delete its data",
+      "type": "shell",
+      "command": "docker compose down -v",
+      "problemMatcher": []
+    },
+    {
+      "label": "KORA: Connect an AI assistant (MCP settings)",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/kora mcp-config --as ui-analyst",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "folder",
+      "type": "promptString",
+      "description": "Folder or .zip to process (it is copied first)",
+      "default": "${userHome}/Downloads/drive-download-20261113T131714Z-1-001"
+    },
+    {
+      "id": "sourceName",
+      "type": "promptString",
+      "description": "Name for this source (lowercase)",
+      "default": "ericsson-drive"
+    },
+    {
+      "id": "owner",
+      "type": "promptString",
+      "description": "Owner of these files",
+      "default": "data-owner"
+    },
+    {
+      "id": "dockerFolder",
+      "type": "promptString",
+      "description": "Folder to process (read-only, at /import in KORA). Leave empty to keep the last one.",
+      "default": ""
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+WEBVTT
+
+seg-1
+00:00:00.200 --> 00:00:04.300
+<v Alice Andersson>Welcome everyone to the architecture review for the regional network.</v>
+
+seg-2
+00:00:04.700 --> 00:00:08.800
+<v Alice Andersson>This is revision A of the network architecture document.</v>
+
+seg-3
+00:00:09.200 --> 00:00:16.800
+<v Alice Andersson>Here is the agenda for today, we will end with decisions.</v>
+
+seg-4
+00:00:17.200 --> 00:00:22.800
+<v Alice Andersson>As you see here, the new edge data centre in Karlskrona sits between aggregation and core.</v>
+
+seg-5
+00:00:23.200 --> 00:00:28.800
+<v Bob Berg>The access rings are still single-homed, which is the main availability risk.</v>
+
+seg-6
+00:00:29.200 --> 00:00:37.800
+<v Alice Andersson>Our design principles: automate everything that is repeated and go dual-homed.</v>
+
+seg-7
+00:00:38.200 --> 00:00:46.800
+<v Bob Berg>The latency budget is five milliseconds end to end, timing comes from PTP grandmasters.</v>
+
+seg-8
+00:00:47.200 --> 00:00:55.800
+<v Alice Andersson>The 5G core user plane moves to the edge, the control plane stays central.</v>
+
+seg-9
+00:00:56.200 --> 00:01:03.800
+<v Bob Berg>We migrate in three phases, starting with lab validation.</v>
+
+seg-10
+00:01:04.200 --> 00:01:09.800
+<v Alice Andersson>Decision: we adopt dual-homed aggregation for all regions.</v>
+
+seg-11
+00:01:10.200 --> 00:01:15.800
+<v Alice Andersson>Action item: Bob validates the lab results by June.</v>
+
+seg-12
+00:01:16.200 --> 00:01:20.800
+<v Bob Berg>The biggest risk is vendor lead time for 100G optics.</v>
+
+seg-13
+00:01:21.200 --> 00:01:25.800
+<v Alice Andersson>Thanks all, the recording and slides will be shared on the site.</v>

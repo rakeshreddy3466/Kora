@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.kora/
+.env
+*.egg-info/
+.pytest_cache/
+reports/
+exports/
+*.db
+.venv/
+.kora-data/
+.DS_Store
+venv/
+env/
+.idea/
+*.log

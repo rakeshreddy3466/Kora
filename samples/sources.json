@@ -1,0 +1,20 @@
+[
+  {
+    "name": "sp-network-team",
+    "system": "sharepoint",
+    "root": "sharepoint/network-team",
+    "site": "network-team"
+  },
+  {
+    "name": "od-bob",
+    "system": "onedrive",
+    "root": "onedrive/bob",
+    "site": "bob"
+  },
+  {
+    "name": "play",
+    "system": "ericsson_play",
+    "root": "play",
+    "site": "play"
+  }
+]

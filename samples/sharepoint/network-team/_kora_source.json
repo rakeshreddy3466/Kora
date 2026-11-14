@@ -1,0 +1,65 @@
+{
+  "default_owner": "alice",
+  "default_acl": [
+    "group:network-team"
+  ],
+  "default_retention_label": "standard",
+  "items": {
+    "Presentations/Network_Architecture_PA1.pdf": {
+      "created": "2026-03-02T09:00:00",
+      "modified": "2026-03-02T09:00:00"
+    },
+    "Presentations/Network_Architecture_PA2.pdf": {
+      "created": "2026-03-20T09:00:00",
+      "modified": "2026-03-20T09:00:00"
+    },
+    "Presentations/Network_Architecture_A.pdf": {
+      "created": "2026-04-15T09:00:00",
+      "modified": "2026-04-15T09:00:00",
+      "retention_label": "record"
+    },
+    "Presentations/Network_Architecture_B.pdf": {
+      "created": "2026-09-01T09:00:00",
+      "modified": "2026-09-01T09:00:00",
+      "retention_label": "record"
+    },
+    "Presentations/5G_Core_Overview.pdf": {
+      "owner": "carol",
+      "created": "2026-06-10T09:00:00",
+      "modified": "2026-06-10T09:00:00"
+    },
+    "Presentations/Network_Architecture_excerpt.pdf": {
+      "owner": "carol",
+      "created": "2026-06-11T09:00:00",
+      "modified": "2026-06-11T09:00:00"
+    },
+    "Team/Team_Update.pdf": {
+      "owner": "bob",
+      "created": "2026-02-01T09:00:00",
+      "modified": "2026-02-01T09:00:00"
+    },
+    "Team/Team_Update_Final.pdf": {
+      "owner": "bob",
+      "created": "2026-02-03T09:00:00",
+      "modified": "2026-02-03T09:00:00"
+    },
+    "Team/Team_Update_Final_v2.pdf": {
+      "owner": "bob",
+      "created": "2026-02-04T09:00:00",
+      "modified": "2026-02-04T09:00:00"
+    },
+    "Team/Onboarding.pptx": {
+      "owner": "carol",
+      "created": "2026-01-10T09:00:00",
+      "modified": "2026-01-10T09:00:00"
+    },
+    "Recordings/Architecture_Review_2026-05-12.mp4": {
+      "created": "2026-05-12T11:00:00",
+      "modified": "2026-05-12T11:00:00"
+    },
+    "Recordings/Architecture_Review_2026-05-12.vtt": {
+      "created": "2026-05-12T11:00:00",
+      "modified": "2026-05-12T11:00:00"
+    }
+  }
+}
